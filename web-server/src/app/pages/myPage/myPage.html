@@ -1,0 +1,78 @@
+
+<div>
+    <div class="row">
+        <div class="col-lg-4 col-md-12 col-sm-12" ba-panel ba-panel-title="Işık">
+            <div class="col-md-5 col-xs-1 col-lg-2"></div>
+            <div class="col-md-7 col-xs-11 col-lg-10">
+                <ng-gauge size="200" type="full" thick="5" value="currentValues.currentLight1" cap="round" label="Işık"  foreground-color="#209e91" background-color="rgba(255,255,255, 0.4)" append="%"></ng-gauge>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12" ba-panel ba-panel-title="Sıcaklık">
+            <div class="col-md-5 col-xs-1 col-lg-2"></div>
+            <div class="col-md-7 col-xs-11 col-lg-10">
+                <ng-gauge size="200" type="full" thick="5" value="currentValues.currentTemp1" cap="round" label="Sıcaklık"  foreground-color="#209e91" background-color="rgba(255,255,255, 0.4)" append="C"></ng-gauge>
+            </div>        
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12" ba-panel ba-panel-title="Nem">
+            <div class="col-md-5 col-xs-1 col-lg-2"></div>
+            <div class="col-md-7 col-xs-11 col-lg-10">
+                <ng-gauge size="200" type="full" thick="5" value="currentValues.currentHum1" cap="round" label="Nem"  foreground-color="#209e91" background-color="rgba(255,255,255, 0.4)" append="%"></ng-gauge>
+            </div>        
+        </div>
+    </div>
+
+    <div class="row" style="height: 100%">
+        <div class="col-lg-4 col-md-12 col-sm-12"
+             ba-panel
+             ba-panel-title="Işık Kontrol">
+            <p>{{user.name}} {{user.surname}}</p>
+
+            <md-switch ng-model="relayValues.auto" aria-label="Switch 1" ng-change="swipe1Changed(relayValues.auto)">
+            <span>Oto Kontrol: {{ relayValues.auto == true ? "Açık" : "Kapalı" }}</span>
+            </md-switch>
+
+            <md-switch ng-model="relayValues.cooler" aria-label="Switch 2" ng-change="swipe2Changed(relayValues.cooler)">
+            <span>Soğutucu: {{ relayValues.cooler == true ? "Açık" : "Kapalı" }}</span>
+            </md-switch>
+
+            <md-switch ng-model="relayValues.heater" aria-label="Switch 3" ng-change="swipe3Changed(relayValues.heater)">
+            <span>Isıtıcı: {{ relayValues.heater == true ? "Açık" : "Kapalı" }}</span>
+            </md-switch>
+
+            <md-switch ng-model="relayValues.light" aria-label="Switch 4" ng-change="swipe4Changed(relayValues.light)">
+            <span>Işıklar: {{ relayValues.light == true ? "Açık" : "Kapalı" }}</span>
+            </md-switch>
+
+            <md-switch ng-model="relayValues.curtain" aria-label="Switch 4" ng-change="swipe5Changed(relayValues.curtain)">
+            <span>Perde: {{ relayValues.curtain == true ? "Açık" : "Kapalı" }}</span>
+            </md-switch>
+
+        </div>
+
+        <div class="col-lg-8 col-md-12 col-sm-12 "
+            ba-panel
+            ba-panel-title="Bar">
+            <h5>Basic</h5>
+
+            <md-slider-container>
+              <span>Sıcaklık</span>
+              <md-slider flex min="5" max="50" ng-model="oldValues.temp1" aria-label="red" id="red-slider" ng-change="slider1Changed(oldValues.temp1)"></md-slider>
+              <md-input-container>
+                <input flex type="number" ng-model="oldValues.temp1" aria-label="red" aria-controls="red-slider">
+              </md-input-container>
+            </md-slider-container>
+
+            <md-slider-container>
+              <span>Işık</span>
+              <md-slider flex min="0" max="100" ng-model="oldValues.light1" aria-label="red" id="red-slider" ng-change="slider2Changed(oldValues.light1)"></md-slider>
+              <md-input-container>
+                <input flex type="number" ng-model="oldValues.light1" aria-label="red" aria-controls="red-slider">
+              </md-input-container>
+            </md-slider-container>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,25 @@
+<style>
+    .bigFont li{
+        font-size: 18px;
+        margin: 10px 0;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-8 col-md-12 col-sm-12"
+        ba-panel
+        ba-panel-title="Kayıtlı Hareketler"
+        ba-panel-class="big-panel">
+        <ul class="bigFont">
+            <li ng-repeat="x in logValues">{{x.$value}}<li>
+        </ul>
+        <button ng-click="clearLogs()">TEMİZLE</button>
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12"
+        ba-panel
+        ba-panel-title="Ayarlar"
+        ba-panel-class="big-panel">
+        <span class="col-lg-6 text-center">Bakıcıya Uyarı Gönder</span> <button class="col-lg-6" ng-click="sendAlert()">Uyarı Gönder</button>
+    </div>
+</div>

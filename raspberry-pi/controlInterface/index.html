@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Looping - fullPage.js</title>
+	<meta name="author" content="Oğuzhan Başer" />
+	<meta name="description" content="fullPage looping demo." />
+	<meta name="keywords"  content="fullpage,jquery,looping,loop,loopTop,loopBottom,demo" />
+	<meta name="Resource-type" content="Document" />
+
+
+	<link rel="stylesheet" type="text/css" href="dist/jquery.fullPage.css" />
+	<link rel="stylesheet" type="text/css" href="dist/examples.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.slim.js"></script>
+	
+	<script type="text/javascript" src="vendors/scrolloverflow.js"></script>
+
+	<script type="text/javascript" src="dist/jquery.fullPage.js"></script>
+
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/highcharts-more.js"></script>
+	<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+	<script type="text/javascript" src="dist/smoothie.js"></script>
+	<script type="text/javascript" src="dist/main.js"></script>
+	<style>
+		.gaugeClass
+		{
+			width:400px;
+			height:180px; 
+		}
+
+		.myFixed{
+			z-index: 999;
+			position:fixed;
+		}
+
+		#gaugeDiv{
+			right:10px;
+			height: 100%;
+		}
+
+		#smoothie-chart{
+			margin-top: 50px;
+			height: 100px;
+		}
+
+		#eSenseDiv{
+			margin-left: 250px;
+			bottom: 5px;
+		}
+
+		#attention{
+			right: 500px;
+			width: 500px;
+			height: 80px;
+		}
+
+		.pb-name{
+			font-size: 30px;
+			height: 90px;
+			line-height: 90px;
+			text-align: center;
+		}
+
+		.chk-status{
+			font-size: 100px;
+		}
+
+		#section0{
+
+		}
+
+		#section1{
+			opacity: 0.6;
+			background-image: url(img/cooler.jpg);
+    		background-position: 50% 0;
+		}
+
+		#section2{
+			opacity: 0.6;
+			background-image: url(img/heater.jpg);
+    		background-position: 50% 0;
+		}
+
+		#section3{
+			opacity: 0.6;
+			background-image: url(img/lamp.jpg);
+    		background-position: 50% 0;
+		}
+
+		#section4{
+			opacity: 0.6;
+			background-image: url(img/curtain.png);
+    		background-position: 50% 0;
+		}
+
+		#section5{
+
+		}
+
+		#section1-in{
+   			background-color: rgba(75, 191, 195, 0.7);
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+		}
+
+		#section2-in{
+   			background-color: rgba(255, 102, 0, 0.7);
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+		}
+
+		#section3-in{
+   			background-color: rgba(255, 204, 0, 0.7);
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+		}
+
+		#section3-in{
+   			background-color: rgba(255, 204, 0, 0.7);
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+		}
+
+		#section4-in{
+   			background-color: rgba(0, 153, 204, 0.7);
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+		}
+
+		.section h1{
+			color: white;
+		}
+
+		.author{
+			font-size: 15px;
+		}
+		
+		#bsalert{
+			right: 5px;
+		}
+	</style>
+</head>
+<body>
+
+<ul id="menu">
+	<li data-menuanchor="secondPage"><a href="#secondPage">Soğutucu</a></li>
+	<li data-menuanchor="3rdPage"><a href="#3rdPage">Isıtıcı</a></li>
+	<li data-menuanchor="4thPage"><a href="#4thPage">Işıklar</a></li>
+	<li data-menuanchor="5thPage"><a href="#5thPage">Perde</a></li>
+	<li data-menuanchor="6thPage"><a href="#6thPage">Bakıcı</a></li>
+</ul>
+
+<div id="gaugeDiv" class="col-sm-3 myFixed">
+	<div class="gaugeClass" id="speed1"></div>
+	<div class="gaugeClass" id="speed2"></div>
+	<div class="gaugeClass" id="speed3" ></div>
+
+	<p class="col-sm-12 author text-center" style="margin-top: 22vh;">Created by Oğuzhan Başer || Cevdet CIVIR || Yağız SARI</p>
+
+	<!--<canvas id="smoothie-chart" width="1000" height="100">-->
+</div>
+
+<div class="myFixed alert alert-info col-sm-6" id="bsalert">
+	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	<strong>Açıklama !</strong> Bakıcıya Bilgi Gönderildi
+</div>
+
+<div id="fullpage" class="col-sm-9">
+	
+	<div class="section" id="section1">
+		<div id="section1-in"></div>
+		<h1>Soğutucu</h1>
+		<p class="chk-status" id="cooler">KAPALI</p>
+
+	</div>
+	<div class="section" id="section2">
+		<div id="section2-in"></div>
+		<h1>Isıtıcı</h1>
+		<p class="chk-status" id="heater">KAPALI</p>
+	</div>
+	<div class="section" id="section3">
+		<div id="section3-in"></div>
+		<h1>Işıklar</h1>
+		<p class="chk-status" id="light">KAPALI</p>
+	</div>
+	<div class="section" id="section4">
+		<div id="section4-in"></div>
+		<h1>Perde</h1>
+		<p class="chk-status" id="curtain">KAPALI</p>
+	</div>
+	<div class="section" id="section5">
+		<h1>Bakıcı</h1>
+	</div>
+</div>
+<div class="col-sm-3 myFixed"></div>
+
+<div class="col-sm-4 myFixed"></div>
+
+<div id="eSenseDiv" class="col-sm-9 myFixed">
+
+	<div class="col-sm-2">
+		<span class="pb-name">Seviye: </span>
+	</div>
+	<div class="col-sm-9">
+		<div id="attention" class="progress">
+			<div id="prb1" class="progress-bar progress-bar-danger" role="progressbar"
+			aria-valuemin="0" aria-valuemax="100" style="width:0%">
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+</body>
+</html>

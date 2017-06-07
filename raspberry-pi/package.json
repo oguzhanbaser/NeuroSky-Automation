@@ -1,0 +1,29 @@
+{
+  "name": "homeserver",
+  "version": "1.0.0",
+  "description": "Home Automation final project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "homeautomation",
+    "raspberry",
+    "nodejs"
+  ],
+  "author": "baseroguzhan",
+  "license": "ISC",
+  "dependencies": {
+    "buffy": "0.0.5",
+    "express": "^4.15.3",
+    "firebase-admin": "^4.2.1",
+    "fullpage.js": "^2.9.4",
+    "johnny-five": "^0.10.10",
+    "mcp3008.js": "^0.4.0",
+    "node-dht-sensor": "0.0.32",
+    "pigpio": "^0.5.1",
+    "raspi-io": "^8.0.0",
+    "raspi-soft-pwm": "^3.0.0",
+    "socket.io": "^2.0.1"
+  }
+}

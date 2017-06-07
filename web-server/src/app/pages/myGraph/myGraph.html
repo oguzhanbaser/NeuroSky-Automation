@@ -1,0 +1,22 @@
+<div class="row">
+    <p>Oğuzhan Başer</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6"
+            ba-panel
+            ba-panel-title="myGraph"
+            ba-panel-class="big-panel">
+            
+            <my-page-line-chart id="myChart1" width="%100" height="500px" chartdata="myVal"></my-page-line-chart>
+            <p ng-repeat="x in valuesArrayT">{{x}}</p>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6"
+            ba-panel
+            ba-panel-title="myGraph"
+            ba-panel-class="big-panel">
+            <!--<my-page-line-chart id="myChart2" width="%100" height="500px"></my-page-line-chart>-->
+    </div>
+</div>
+
+<!--<canvas id="line-chart1" class="chart chart-line" chart-data="graph.data" chart-labels="graph.labels"></canvas> -->
