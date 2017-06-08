@@ -7,6 +7,7 @@ control any devices without any help. But NeuroSky Brainwave sensor changes ever
 There are lots of system in this project. So requirements list is long a bit.
 
 If you want to do this project you will need this devices:
+
     - Raspberry Pi 3
     - DHT11 Humdity and Temperature Sensor
     - Servo Motor
