@@ -18,4 +18,14 @@ If you want to do this project you will need this devices:
 And you will need this softwares:
     -Node JS
     -Wiring Pi (To control Raspbery Pi pins)
-    
+
+We used <b>Blur Admin</b> Dashboard to make web panel for all home users. This dhasboard work with AngularJS Framework and AngularJs compatible with Firebase. So it is very usefull for this application. because we use Firebase to communicate Raspberry Pi and Web panel.
+
+##Project Structure
+
+    -Blur Admin Dashboard
+    -Raspberry Pi Node Js Server
+        -- Pi server         (To control devices)
+        -- Control Interface (for the patient)
+
+...
