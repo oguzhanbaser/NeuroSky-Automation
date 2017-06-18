@@ -7,25 +7,26 @@ control any devices without help. But NeuroSky Brainwave sensor changes everythi
 There are lots of system in this project. So requirements list is long a bit.
 
 If you want to do this project you will need this devices:
-    -Raspberry Pi 3
-    -DHT11 Humdity and Temperature Sensor
-    -Servo Motor
-    -LDR
-    -8 Channel Relay (Min 4 channel)
-    -3A 5V Regulator
-    -MCP3008
+
+    - Raspberry Pi 3
+    - DHT11 Humdity and Temperature Sensor
+    - Servo Motor
+    - LDR
+    - 8 Channel Relay (Min 4 channel)
+    - 3A 5V Regulator
+    - MCP3008
 
 And you will need this softwares:
     -Node JS
     -Wiring Pi (To control Raspbery Pi pins)
     -Gort (to connect with bluetooth)
 
-We used <b>Blur Admin</b> Dashboard to make web panel for all home users. This dhasboard work with AngularJS Framework and AngularJs compatible with Firebase. So it is very usefull for this application. because we use Firebase to communicate Raspberry Pi and Web panel.
+We used <b>Blur Admin</b> Dashboard to make web panel for all home users. This dashboard work with AngularJS Framework. AngularJs is a very good framework to using Firebase. So it is very usefull for this application. Because we use Firebase to communicate Raspberry Pi and Web panel.
 
 ##Project Structure
 
-    -Blur Admin Dashboard
-    -Raspberry Pi Node Js Server
+    - Blur Admin Dashboard
+    - Raspberry Pi Node Js Server
         -- Pi server         (To control devices)
         -- Control Interface (for the patient)
 
