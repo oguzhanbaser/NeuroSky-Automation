@@ -31,10 +31,10 @@ We used <b>Blur Admin</b> Dashboard to make web panel for all home users. This d
         -- Control Interface (for the patient)
 
 
-##Connection diagram
+## Connection diagram
 <img src="raspberry-pi\fritzing\bitirme_bb.png"></img>
 
-##Starting Steps
+## Starting Steps
 
 In raspberry pi:
 
@@ -55,7 +55,7 @@ sudo node mainEvent.js
 
 ```
 
-###Attention
+### Attention
 
 main.js and mainEvent.js are same thing. Only difference between these mainEvent.js works with events. You have to run one of these files. 
 
