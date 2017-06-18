@@ -17,7 +17,6 @@
     "buffy": "0.0.5",
     "express": "^4.15.3",
     "firebase-admin": "^4.2.1",
-    "fullpage.js": "^2.9.4",
     "johnny-five": "^0.10.10",
     "mcp3008.js": "^0.4.0",
     "node-dht-sensor": "0.0.32",

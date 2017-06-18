@@ -4,19 +4,27 @@ var dht11 = require("./dht11.js");
 var mcpReader = require('./mcpRead.js');
 const Raspi = require('raspi-io');
 const five = require('johnny-five');
+var servo = require('./servo.js');
 
 var path = require('path');
-var express = require('express');	
+var express = require('express');		//express framework unu çağırdık
 var app = express();					
 var http = require('http').Server(app);
 var socket = require('socket.io')(http);
 var port = 2500;
 
-app.use(express.static(path.join(__dirname + '/controlInterface')));
+app.use(express.static(__dirname + '/controlInterface/'));
 
 app.get('/', function(req ,res) {
-	res.sendFile (__dirname + '/controlInterface/index.html');
+	res.sendfile (__dirname + '/controlInterface/index.html');
 });
+
+http.listen(port,function(){
+	console.log("Listeining: ", port);
+});
+
+var autoControl = false;
+
 
 const board = new five.Board({
   io: new Raspi({
@@ -35,6 +43,8 @@ const board = new five.Board({
 
 var relay1, relay2, relay3, relay4;
 var relayArray = [];
+var pinArray = [1, 2, 3, 0];
+var pinValues = [false, false, false, false];
 
 board.on('ready', () => {
   relay1 = new five.Led("P1-11");
@@ -47,8 +57,9 @@ board.on('ready', () => {
   relay3.on();    //ısıtıcı
   relay4.on();    //ışık
 
-  relayArray = [relay1, relay2, relay3, relay4];
+  relayArray = [relay2, relay3, relay4, relay1];
 });
+
 
 var serviceAccount = require("./homeautomation2.json");
 
@@ -68,8 +79,8 @@ var values = {},      //null
   relayValues = {};   //röle değerleri
 
 var offsetVal = 1;
-var autoControl = true;
 var intervalTime = 5000;
+var lockTemp = false, lockLight = false;
 
 dbRef.on('value', function(p_val) {
   setValues = p_val.val();
@@ -77,6 +88,7 @@ dbRef.on('value', function(p_val) {
 
 dbRelay.on('value', function(p_val) {
   relayValues = p_val.val();
+  //console.log(relayValues);
 
   autoControl = relayValues["auto"];
 
@@ -102,6 +114,9 @@ dbRelay.on('value', function(p_val) {
     }else{
       stopLight();
     }
+  }else{
+    lockTemp = false;
+    lockLight = false;
   }
 
 });
@@ -115,23 +130,31 @@ setInterval(function(){
   dbCurrent.set(raspiValues);
 }, intervalTime);
 
-var oldBlink, counter = 0, switchCount = 4;
+
+var oldBlink, counter = 0, switchCount = 5;
 var isChangedBlink = false, isChangedAttention = false;
+var servoStat = false;
 
 //****************MAİN LOOP****************************/
+
 setInterval(function(){
   
-  console.log(mcpReader.adcValues);
+  //console.log(raspiValues);
 
+  //console.log(lockLight + " " +lockTemp);
+  
   raspiValues["currentHum1"] = dht11.values["humi"];
   raspiValues["currentTemp1"] = dht11.values["temp"];
+  raspiValues["currentLight1"] = mcpReader.adcValues[0];
 
-  
+  socket.emit('sensValues', raspiValues);
+
   var newBlink = 0, attention = 0, quality = 200;
 
-  console.log(neuroSky.allData);
+  //console.log(neuroSky.allData);
 
   var quality = neuroSky.allData["signal"];
+  socket.emit('signal', quality);
 
   if(quality == 0)
   {
@@ -152,44 +175,62 @@ setInterval(function(){
      setTimeout(function(){isChangedBlink = false}, 3000);
   }
 
+  
   if((attention > 70) && !isChangedAttention)
   {
      isChanged = true;
-     //relayArray[counter].toggle();
-     console.log("switch toggled, relay ", counter);
-     isChangedAttention = true;
-     socket.emit('toggle', 1);
+     if(counter < 5)
+     {
+      relayArray[counter].toggle();
+      if(counter == 3)
+      {
+          if(servoStat)
+          {
+            servo.setValue(1100);
+            servoStat = false;
+          }else{
+            servo.setValue(1900);
+            servoStat = true;
+          }
+      }
+      console.log("switch toggled, relay ", counter);
+      isChangedAttention = true;
+      socket.emit('toggle', relayArray[counter].isOn);
+      if(counter > 1) lockLight = true;
+      if(counter < 2) lockTemp = true;
+     }else{
+
+     }
      setTimeout(function(){isChangedAttention = false}, 10000);
   }
+
   
   if(autoControl)
   {
-    if(raspiValues["currentTemp1"] > setValues["temp1"] + offsetVal)
+    if((raspiValues["currentTemp1"] > setValues["temp1"] + offsetVal) && !lockTemp)
     {
-      console.log("fan çalıştı");
+      //console.log("fan çalıştı");
       runCooler();
       stopHeater();
 
-    }else if(raspiValues["currentTemp1"] < setValues["temp1"] - offsetVal)
+    }else if((raspiValues["currentTemp1"] < setValues["temp1"] - offsetVal) && !lockTemp)
     {
-      console.log("Isııtıcı çalıştı");
+      //console.log("Isııtıcı çalıştı");
       runHeater();
       stopCooler();
     }
 
-    if(raspiValues["currentLight1"] > setValues["light1"])
+    if((raspiValues["currentLight1"] > setValues["light1"]) && !lockLight)
     {
-      console.log("Işık Normal");
-    }else if(raspiValues["currentLight1"] < setValues["light1"])
+      //console.log("Işık Normal");
+      closeCurtain();
+    }else if((raspiValues["currentLight1"] < setValues["light1"]) && !lockLight)
     {
-      console.log("Işık Yandı")
+      //console.log("Işık Kapalı");
+      openCurtain();
     }
   }
 }, 1000);
-
-http.listen(port,function(){
-	console.log("Listeining: ", port);
-});
 
 function runCooler(){relay2.off();}
 function stopCooler(){relay2.on();}
@@ -197,3 +238,5 @@ function runHeater(){relay3.off();}
 function stopHeater(){relay3.on();}
 function runLight(){relay4.off();}
 function stopLight(){relay4.on();}
+function openCurtain(){servo.setValue(1900);}
+function closeCurtain(){servo.setValue(1100);}

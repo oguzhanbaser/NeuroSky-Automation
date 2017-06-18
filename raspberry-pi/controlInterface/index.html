@@ -9,9 +9,11 @@
 	<meta name="keywords"  content="fullpage,jquery,looping,loop,loopTop,loopBottom,demo" />
 	<meta name="Resource-type" content="Document" />
 
-
-	<link rel="stylesheet" type="text/css" href="dist/jquery.fullPage.css" />
-	<link rel="stylesheet" type="text/css" href="dist/examples.css" />
+	
+	<link rel="stylesheet" type="text/css" href="/dist/jquery.fullpage.css" />
+	<link rel="stylesheet" type="text/css" href="/dist/examples.css" />
+	
+	<!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.4/jquery.fullpage.css" />-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!--[if IE]>
@@ -24,15 +26,17 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.slim.js"></script>
 	
-	<script type="text/javascript" src="vendors/scrolloverflow.js"></script>
-
-	<script type="text/javascript" src="dist/jquery.fullPage.js"></script>
+	
+	<script type="text/javascript" src="/vendors/scrolloverflow.js"></script>
+	<script type="text/javascript" src="/dist/jquery.fullpage.js"></script>
+	<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.4/jquery.fullpage.js"></script>-->
+	
 
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/highcharts-more.js"></script>
 	<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-	<script type="text/javascript" src="dist/smoothie.js"></script>
-	<script type="text/javascript" src="dist/main.js"></script>
+	<script type="text/javascript" src="/dist/smoothie.js"></script>
+	<script type="text/javascript" src="/dist/main.js"></script>
 	<style>
 		.gaugeClass
 		{
@@ -75,6 +79,7 @@
 
 		.chk-status{
 			font-size: 100px;
+			color : #ff0000;
 		}
 
 		#section0{
@@ -139,7 +144,7 @@
 			z-index: -1;
 		}
 
-		#section3-in{
+		#section5-in{
    			background-color: rgba(255, 204, 0, 0.7);
 			position: absolute;
 			top: 0;
@@ -166,7 +171,17 @@
 		.author{
 			font-size: 15px;
 		}
-		
+
+		.adviser{
+			font-size: 15px;
+		}
+
+		.bottom-align-text {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+
 		#bsalert{
 			right: 5px;
 		}
@@ -183,12 +198,18 @@
 </ul>
 
 <div id="gaugeDiv" class="col-sm-3 myFixed">
+	<p class="text-center">Sinyal Kalitesi: <span id="quality">--</span></p>
 	<div class="gaugeClass" id="speed1"></div>
 	<div class="gaugeClass" id="speed2"></div>
 	<div class="gaugeClass" id="speed3" ></div>
 
-	<p class="col-sm-12 author text-center" style="margin-top: 22vh;">Created by Oğuzhan Başer || Cevdet CIVIR || Yağız SARI</p>
-
+	<p class="col-sm-12 author bottom-align-text text-center">
+		Created by 
+		<br> 
+		Oğuzhan Başer || Cevdet CIVIR || Yağız SARI
+		<br>
+		Yrd. Doç. Dr. Önder Aydemir
+	</p>
 	<!--<canvas id="smoothie-chart" width="1000" height="100">-->
 </div>
 
@@ -203,7 +224,6 @@
 		<div id="section1-in"></div>
 		<h1>Soğutucu</h1>
 		<p class="chk-status" id="cooler">KAPALI</p>
-
 	</div>
 	<div class="section" id="section2">
 		<div id="section2-in"></div>
@@ -230,9 +250,10 @@
 
 <div id="eSenseDiv" class="col-sm-9 myFixed">
 
-	<div class="col-sm-2">
-		<span class="pb-name">Seviye: </span>
+	<div class="col-sm-3">
+		<span class="pb-name">Seviye: <span id="attSpan">--</span></span>
 	</div>
+	
 	<div class="col-sm-9">
 		<div id="attention" class="progress">
 			<div id="prb1" class="progress-bar progress-bar-danger" role="progressbar"
@@ -241,9 +262,9 @@
 			</div>
 		</div>
 	</div>
-
 </div>
 
+<div class="col-sm-3 myFixed"></div>
 
 </body>
 </html>

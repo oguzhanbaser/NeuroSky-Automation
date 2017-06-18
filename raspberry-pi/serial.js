@@ -1,6 +1,6 @@
 var SerialPort = require("serialport");
 var buffy = require("buffy");
-var port = new SerialPort("COM4", {
+var port = new SerialPort("/dev/rfcomm0", {
   baudRate: 57600,
   autoOpen: false,
   parser: SerialPort.parsers.raw,
@@ -25,7 +25,7 @@ port.on('error', function(err) {
 });
 
 port.on('data', function(data){
-  var topReader = buffy.createReader(data);
+    var topReader = buffy.createReader(data);
 
     while(topReader.bytesAhead() > 2)
     {
@@ -111,7 +111,7 @@ port.on('data', function(data){
                         {
                           maxValue = rawEeg;
                         }
-
+                        
                         if((allData["wave"] > 500 || allData["wave"] < -500) && !waveStat)
                         {
                           waveStat = true;
@@ -139,7 +139,6 @@ port.on('data', function(data){
                           this.emit("myBlink", waveCounter);
                           //console.log(waveCounter);
                           waveCounter = 0;
-                          maxValue = 0;
                         }
                       }
                       break;
@@ -169,7 +168,7 @@ port.on('data', function(data){
 });
 
 var waveStat = false;
-var zeroCounter = 0, waveVal = 0, waveCounter = 0, averageWave = 0;
+var zeroCounter = 0, waveVal = 0, waveCounter = 0, averageWave = 0;;
 var maxValue = 0;
 
 function isDefined(p_val)

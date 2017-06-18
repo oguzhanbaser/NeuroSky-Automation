@@ -2,7 +2,7 @@
 ### Basic room automation for paralytic people with NeuroSky Mindwave Sensor
 
 In this project we used NeuroSky sensor to control electronic devices in a room. Fully paralytic people cannot use any limb. So they cannot 
-control any devices without any help. But NeuroSky Brainwave sensor changes everything .. 
+control any devices without help. But NeuroSky Brainwave sensor changes everything .. 
 
 There are lots of system in this project. So requirements list is long a bit.
 
@@ -18,6 +18,7 @@ If you want to do this project you will need this devices:
 And you will need this softwares:
     -Node JS
     -Wiring Pi (To control Raspbery Pi pins)
+    -Gort (to connect with bluetooth)
 
 We used <b>Blur Admin</b> Dashboard to make web panel for all home users. This dhasboard work with AngularJS Framework and AngularJs compatible with Firebase. So it is very usefull for this application. because we use Firebase to communicate Raspberry Pi and Web panel.
 
@@ -27,5 +28,35 @@ We used <b>Blur Admin</b> Dashboard to make web panel for all home users. This d
     -Raspberry Pi Node Js Server
         -- Pi server         (To control devices)
         -- Control Interface (for the patient)
+
+
+##Connection diagram
+<img src="raspberry-pi\fritzing\bitirme_bb.png"></img>
+
+##Starting Steps
+
+In raspberry pi:
+
+You should change mac adress in "connectBluetooth.sh". After that you can connect with this command. You can download gort from <a href="http://gort.io/documentation/getting_started/downloads/" target="_blank">this link</a>.
+
+```sh
+
+sudo ./connectBluetooth.sh
+
+```
+
+When bluetooth connect, port will open at /dev/rfcomm0. So you will should listen this port in "serial.js" & "serialEvent.js". You can start app by these command in raspberry pi. You should open new terminal after connect bluetooth. 
+
+```sh
+
+npm install
+sudo node mainEvent.js
+
+```
+
+###Attention
+
+main.js and mainEvent.js are same thing. Only difference between these mainEvent.js works with events. You have to run one of these files. 
+
 
 ...

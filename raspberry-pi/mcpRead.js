@@ -6,7 +6,8 @@ var counter = 0;
 
 setInterval(function(){
     adc.read(counter, function (value) {
-        adcValues[counter++] =value;
+        value = value * 100 / 1023;
+        adcValues[counter++] = parseInt(value);
 
         if(counter == 8) counter = 0;
     }); 

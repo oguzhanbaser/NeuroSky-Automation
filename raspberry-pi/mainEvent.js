@@ -41,7 +41,7 @@ const board = new five.Board({
   })
 });
 
-var relay1, relay2, relay3, relay4;
+var relay1, relay2, relay3, relay4, relay5;
 var relayArray = [];
 var pinArray = [1, 2, 3, 0];
 var pinValues = [false, false, false, false];
@@ -51,20 +51,22 @@ board.on('ready', () => {
   relay2 = new five.Led("P1-12");
   relay3 = new five.Led("P1-13");
   relay4 = new five.Led("P1-15");
+  relay5 = new five.Led("P1-16");
 
   relay1.on();    //boş
   relay2.on();    //fan
   relay3.on();    //ısıtıcı
   relay4.on();    //ışık
+  relay5.on();    //boş
 
-  relayArray = [relay2, relay3, relay4, relay1];
+  relayArray = [relay2, relay3, relay4, relay1, relay5];
 });
 
 var serviceAccount = require("./homeautomation2.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "YOUR-FIREBASE-KEY-HERE"
+  databaseURL: "https://homeautomation2-e8bd0.firebaseio.com"
 });
 
 var db = admin.database();
@@ -162,20 +164,36 @@ setTimeout(function(){
   neuroSky.on("rawEEG", function(p_val){
 
   });
+
 }, 1500);
 
+socket.on('connection', function(io){  
+  console.log("Client Acildi");
+
+  io.on("getFirstVals", function(p_val){
+    var resArray = [];
+
+    for(var i = 0 ; i < relayArray.length; i++)
+    {
+      resArray.push(relayArray[i].isOn);
+    }
+    socket.emit('resGetValues', resArray);
+  });
+});
+
 //****************MAİN LOOP****************************/
+
 setInterval(function(){
+  
   raspiValues["currentHum1"] = dht11.values["humi"];
   raspiValues["currentTemp1"] = dht11.values["temp"];
   raspiValues["currentLight1"] = mcpReader.adcValues[0];
 
   socket.emit('sensValues', raspiValues);
 
-  console.log(quality);
+  //console.log(quality);
 
   socket.emit('signal', quality);
-
   
   if(quality == 0)
   {
@@ -192,6 +210,7 @@ setInterval(function(){
      socket.emit('blink', counter);
      setTimeout(function(){isChangedBlink = false}, 3000);
   }
+
   
   if((attention > 70) && !isChangedAttention)
   {
@@ -216,13 +235,14 @@ setInterval(function(){
       console.log("switch toggled, relay ", counter);
       isChangedAttention = true;
       socket.emit('toggle', relayArray[counter].isOn);
-      if(counter > 1) lockLight = true;
-      if(counter < 2) lockTemp = true;
+      if(counter > 1) lockLight = true;             //hastanın otomaik kontolü kilitleme 
+      if(counter < 2) lockTemp = true;              //istekleri
      }else{
 
      }
      setTimeout(function(){isChangedAttention = false}, 10000);
   }
+
   
   if(autoControl)
   {

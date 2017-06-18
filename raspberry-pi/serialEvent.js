@@ -1,6 +1,6 @@
 var SerialPort = require("serialport");
 var buffy = require("buffy");
-var port = new SerialPort("COM4", {
+var port = new SerialPort("/dev/rfcomm0", {
   baudRate: 57600,
   autoOpen: false,
   parser: SerialPort.parsers.raw,
