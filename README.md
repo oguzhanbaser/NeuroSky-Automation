@@ -17,6 +17,7 @@ If you want to do this project you will need this devices:
     - MCP3008
 
 And you will need this softwares:
+
     -Node JS
     -Wiring Pi (To control Raspbery Pi pins)
     -Gort (to connect with bluetooth)
