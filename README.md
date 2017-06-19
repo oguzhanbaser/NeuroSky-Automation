@@ -23,7 +23,7 @@ And you will need this softwares:
 
 We used <b>Blur Admin</b> Dashboard to make web panel for all home users. This dashboard work with AngularJS Framework. AngularJs is a very good framework to using Firebase. So it is very usefull for this application. Because we use Firebase to communicate Raspberry Pi and Web panel.
 
-##Project Structure
+## Project Structure
 
     - Blur Admin Dashboard
     - Raspberry Pi Node Js Server
@@ -46,7 +46,7 @@ sudo ./connectBluetooth.sh
 
 ```
 
-When bluetooth connect, port will open at /dev/rfcomm0. So you will should listen this port in "serial.js" & "serialEvent.js". You can start app by these command in raspberry pi. You should open new terminal after connect bluetooth. 
+When bluetooth connect, port will open at /dev/rfcomm0. So you should listen this port in "serial.js" & "serialEvent.js". After connect you should open new terminal after connect bluetooth. 
 
 ```sh
 
