@@ -39,7 +39,7 @@ We used <b>Blur Admin</b> Dashboard to make web panel for all home users. This d
 
 In raspberry pi:
 
-You should change mac adress in "connectBluetooth.sh". After that you can connect with this command. You can download gort from <a href="http://gort.io/documentation/getting_started/downloads/" target="_blank">this link</a>.
+You should change mac adress in "connectBluetooth.sh" with your NeuroSky Sensor Mac adress. After that you can connect with this command. You can download gort from <a href="http://gort.io/documentation/getting_started/downloads/" target="_blank">this link</a>.
 
 ```sh
 
@@ -47,7 +47,7 @@ sudo ./connectBluetooth.sh
 
 ```
 
-When bluetooth connect, port will open at /dev/rfcomm0. So you should listen this port in "serial.js" & "serialEvent.js". After connect you should open new terminal after connect bluetooth. 
+When bluetooth connect, port will open at /dev/rfcomm0. So you should listen this port in "serial.js" or "serialEvent.js" (use one of these). After connect you should open new terminal after connect bluetooth. 
 
 ```sh
 
