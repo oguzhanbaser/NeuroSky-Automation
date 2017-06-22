@@ -65,8 +65,8 @@ board.on('ready', () => {
 var serviceAccount = require("./homeautomation2.json");
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://homeautomation2-e8bd0.firebaseio.com"
+  credential: "Your credential",
+  databaseURL: "your firebase URL"
 });
 
 var db = admin.database();
